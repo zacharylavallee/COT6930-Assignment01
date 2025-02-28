@@ -1,12 +1,17 @@
 # COT6930-Assignment01
+## Zachary Lavallee
 
+### Prompt template: Chain-of-Thought
 
-## Prompt template: Chain-of-Thought
+### Target: ollama
 
-## Target: ollama
+### Model: llama3.2:latest
 
-## Model: llama3.2:latest
-
+### Experimental Use Case:
+   * Evaluate and grade the responses llama3.2:latest generates while modifying the fields:
+    ** temperature
+    ** num_ctx
+    ** num_predict
 
 
 # Scoring Criteria
