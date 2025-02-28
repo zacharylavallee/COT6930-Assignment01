@@ -1,24 +1,25 @@
 # COT6930-Assignment01
 
+
+## Prompt template: Chain-of-Thought
+
+## Target: ollama
+
+## Model: llama3.2:latest
+
+
+
 # Scoring Criteria
 
-Each response is evaluated based on the following five criteria, with a maximum possible score of **25 points**.
+### 1. Completeness (**0-5 points**)   
 
-## 1. Completeness (**0-5 points**)   
+### 2. Accuracy (**0-5 points**)  
 
-## 2. Accuracy (**0-5 points**)  
+### 3. Depth & Context (**0-5 points**)  
 
-## 3. Depth & Context (**0-5 points**)  
+### 4. Clarity & Readability (**0-5 points**)  
 
-## 4. Clarity & Readability (**0-5 points**)  
-
-## 5. Usefulness & Application (**0-5 points**)  
-
----
-
-### **Total Score:**
-A response can earn up to **25 points** based on the sum of all five criteria.
-
+### 5. Usefulness & Application (**0-5 points**)  
 
 
 | Variation Type  | Temperature | Context Size | Prediction Length | Response Time | Generated Response | Final Score (0-25) |
