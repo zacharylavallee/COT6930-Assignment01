@@ -9,9 +9,9 @@
 
 ### Experimental Use Case:
    * Evaluate and grade the responses llama3.2:latest generates while modifying the fields: 
-   - temperature
-   - num_ctx
-   - num_predict
+    * temperature
+    * num_ctx
+    * num_predict
 
 
 # Scoring Criteria
