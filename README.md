@@ -1,37 +1,46 @@
 # COT6930-Assignment01
-## Name: Zachary Lavallee
 
+Response quality analysis 
 
-### Target: ollama
-### Model: llama3.2:latest
-### Prompt template: Chain-of-Thought
-### Prompt: 
-    Step 1: Define personal privacy. 
-    Step 2: Define national security. 
-    Step 3: Identify conflicts. 
-    Step 4: Suggest a balance.
-    answer: What is the ideal balance between personal privacy and national security in the digital age?
+* Authors: [Zachary Lavallee](https://github.com/zacharylavallee/COT6930-Assignment01)
+* Academic Supervisor: [Dr. Fernando Koch](http://www.fernandokoch.me)
 
-### Experimental Use Case:
-   * Evaluate and grade the responses llama3.2:latest generates while modifying the fields: 
-     * temperature
-     * num_ctx
-     * num_predict
+# Research Question 
 
+How does Temperature, Context Size, and Prediction Length affect response time and response quality?
 
-# Scoring Criteria
+## Arguments
 
-### 1. Completeness (**0-5 points**)   
+#### What is already known about this topic
 
-### 2. Accuracy (**0-5 points**)  
+* Temperature controls the randomness of the model's output.
+* Context size sets the number of tokens the model considers when generating a response.
+* Prediction length limits the maximum number of tokens generated in the response.
 
-### 3. Depth & Context (**0-5 points**)  
+#### What this research is exploring
 
-### 4. Clarity & Readability (**0-5 points**)  
+* I am using the Chain-of-Thought prompt template.
+* I am exploring how the three values affect response generation time and quality.
 
-### 5. Usefulness & Application (**0-5 points**)  
+#### Implications for practice
+
+* Optimization of the use of a model to answer specific questions and receive desired details from a prompt.
+
+# Research Method
+
+To perform this experiment, I used the template code provided for the assignment and modified it to generate a set of responses, adjusting one, two, or all three variables at a time to observe their effects. Once the results were generated locally, I used AI to help analyze the results using a rubric to grade each response.
+
+### Scoring Criteria
+
+* Completeness (**0-5 points**)   
+* Accuracy (**0-5 points**)  
+* Depth & Context (**0-5 points**)  
+* Clarity & Readability (**0-5 points**)  
+* Usefulness & Application (**0-5 points**)  
 
 # Results
+
+Based on the results below, Context Size and Prediction Length have the largest effects on response time and response quality. However, high values in these two fields do not guarantee a higher quality score but do increase the probability of achieving one.
 
 | Variation Type  | Temperature | Context Size | Prediction Length | Response Time (Seconds) | Score |
 |----------------|------------|--------------|--------------------|---------------|---------------------|
@@ -51,6 +60,13 @@
 | Three Variables | 0.5       | 500          | 200                | 6.426         | 22 |
 | Three Variables | 1.0       | 5000         | 1000               | 15.327        | 24 |
 | Three Variables | 1.5       | 50000        | 5000               | 13.667        | 21 |
+
+# Further research
+
+Further research would benefit from a larger collection of data. More data and variability in each of the three values would help provide a more comprehensive view on how to optimize these parameters for obtaining desired information from an AI model.
+
+
+
 
 
 
