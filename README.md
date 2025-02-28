@@ -1,6 +1,6 @@
 # COT6930-Assignment01
 
-Response quality analysis 
+Response Time and Quality Analysis 
 
 * Authors: [Zachary Lavallee](https://github.com/zacharylavallee/COT6930-Assignment01)
 * Academic Supervisor: [Dr. Fernando Koch](http://www.fernandokoch.me)
