@@ -1,5 +1,5 @@
 # COT6930-Assignment01
-## Zachary Lavallee
+## Name: Zachary Lavallee
 
 
 ### Target: ollama
