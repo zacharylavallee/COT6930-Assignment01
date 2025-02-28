@@ -31,9 +31,7 @@
 
 ### 5. Usefulness & Application (**0-5 points**)  
 
-# Experiment Results
-
-# Experiment Results
+# Results
 
 | Variation Type  | Temperature | Context Size | Prediction Length | Response Time (Seconds) | Score |
 |----------------|------------|--------------|--------------------|---------------|---------------------|
