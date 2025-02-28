@@ -3,6 +3,13 @@
 
 ### Prompt template: Chain-of-Thought
 
+### Prompt: 
+    #### Step 1: Define personal privacy. 
+    #### Step 2: Define national security. 
+    #### Step 3: Identify conflicts. 
+    #### Step 4: Suggest a balance.
+    #### answer: "What is the ideal balance between personal privacy and national security in the digital age?"
+
 ### Target: ollama
 
 ### Model: llama3.2:latest
