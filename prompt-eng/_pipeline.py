@@ -1,45 +1,16 @@
-##
-## Prompt Engineering Lab
-## Platform for Education and Experimentation with Prompt NEngineering in Generative Intelligent Systems
-## _pipeline.py :: Simulated GenAI Pipeline 
-## 
-#  
-# Copyright (c) 2025 Dr. Fernando Koch, The Generative Intelligence Lab @ FAU
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights 
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-# 
-# Documentation and Getting Started:
-#    https://github.com/GenILab-FAU/prompt-eng
-#
-# Disclaimer: 
-# Generative AI has been used extensively while developing this package.
-# 
-
-
 import requests
 import json
 import os
 import time
+import csv
 
 def load_config():
-    """
-    Load config file looking into multiple locations
-    """
     config_locations = [
         "./_config",
         "prompt-eng/_config",
         "../_config"
     ]
     
-    # Find CONFIG
     config_path = None
     for location in config_locations:
         if os.path.exists(location):
@@ -49,7 +20,6 @@ def load_config():
     if not config_path:
         raise FileNotFoundError("Configuration file not found in any of the expected locations.")
     
-    # Load CONFIG
     with open(config_path, 'r') as f:
         for line in f:
             line = line.strip()
@@ -57,119 +27,106 @@ def load_config():
                 key, value = line.split('=', 1)
                 os.environ[key.strip()] = value.strip()
 
-
 def create_payload(model, prompt, target="ollama", **kwargs):
-    """
-    Create the Request Payload in the format required byt the Model Server
-    @NOTE: 
-    Need to adjust here to support multiple target formats
-    target can be only ('ollama' or 'open-webui')
-
-    @TODO it should be able to self_discover the target Model Server
-    [Issue 1](https://github.com/genilab-fau/prompt-eng/issues/1)
-    """
-
-    payload = None
-    if target == "ollama":
-        payload = {
-            "model": model,
-            "prompt": prompt, 
-            "stream": False,
-        }
-        if kwargs:
-            payload["options"] = {key: value for key, value in kwargs.items()}
-
-    elif target == "open-webui":
-        '''
-        @TODO need to verify the format for 'parameters' for 'open-webui' is correct.
-        [Issue 2](https://github.com/genilab-fau/prompt-eng/issues/2)
-        '''
-        payload = {
-            "model": model,
-            "messages": [ {"role" : "user", "content": prompt } ]
-        }
-
-        # @NOTE: Taking not of the syntaxes we tested before; none seems to work so far 
-        #payload.update({key: value for key, value in kwargs.items()})
-        #if kwargs:
-        #   payload["options"] = {key: value for key, value in kwargs.items()}
-        
-    else:
-        print(f'!!ERROR!! Unknown target: {target}')
+    payload = {
+        "model": model,
+        "prompt": prompt,
+        "stream": False,
+    }
+    if kwargs:
+        payload["options"] = {key: value for key, value in kwargs.items()}
     return payload
 
-
 def model_req(payload=None):
-    """
-    Issue request to the Model Server
-    """
-        
-    # CUT-SHORT Condition
     try:
         load_config()
     except:
-        return -1, f"!!ERROR!! Problem loading prompt-eng/_config"
+        return -1, "!!ERROR!! Problem loading prompt-eng/_config"
 
     url = os.getenv('URL_GENERATE', None)
     api_key = os.getenv('API_KEY', None)
     delta = response = None
 
-    headers = dict()
-    headers["Content-Type"] = "application/json"
-    if api_key: headers["Authorization"] = f"Bearer {api_key}"
+    headers = {"Content-Type": "application/json"}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
 
-    #print(url, headers)
-    print(payload)
-
-    # Send out request to Model Provider
     try:
         start_time = time.time()
         response = requests.post(url, data=json.dumps(payload) if payload else None, headers=headers)
         delta = time.time() - start_time
     except:
-        return -1, f"!!ERROR!! Request failed! You need to adjust prompt-eng/config with URL({url})"
+        return -1, "!!ERROR!! Request failed! You need to adjust prompt-eng/config with URL({url})"
 
-    # Checking the response and extracting the 'response' field
     if response is None:
-        return -1, f"!!ERROR!! There was no response (?)"
+        return -1, "!!ERROR!! There was no response (?)"
     elif response.status_code == 200:
-
-        ## @NOTE: Need to adjust here to support multiple response formats
-        result = ""
         delta = round(delta, 3)
-
         response_json = response.json()
-        if 'response' in response_json: ## ollama
-            result = response_json['response']
-        elif 'choices' in response_json: ## open-webui
-            result = response_json['choices'][0]['message']['content']
-        else:
-            result = response_json 
-        
+        result = response_json.get("response") or response_json.get("choices", [{}])[0].get("message", {}).get("content", "")
         return delta, result
-    elif response.status_code == 401:
-        return -1, f"!!ERROR!! Authentication issue. You need to adjust prompt-eng/config with API_KEY ({url})"
     else:
         return -1, f"!!ERROR!! HTTP Response={response.status_code}, {response.text}"
-    return
 
+PROMPT = ("Step 1: Define personal privacy. Step 2: Define national security. "
+          "Step 3: Identify conflicts. Step 4: Suggest a balance.\n\nNow, answer: "
+          "What is the ideal balance between personal privacy and national security in the digital age?")
+MODEL = "llama3.2:latest"
 
-###
-### DEBUG
-###
+temperature_values = [0.5, 1.0, 1.5]
+num_ctx_values = [500, 5000, 50000]
+num_predict_values = [200, 1000, 5000]
+
+baseline_temperature = 1.0
+baseline_num_ctx = 100
+baseline_num_predict = 100
+
+results = []
+
+def run_experiment():
+    global results
+
+    payload = create_payload(MODEL, PROMPT, temperature=baseline_temperature, num_ctx=baseline_num_ctx, num_predict=baseline_num_predict)
+    response_time, response_text = model_req(payload)
+    results.append(["Baseline", baseline_temperature, baseline_num_ctx, baseline_num_predict, response_time, response_text])
+
+    for temp in temperature_values:
+        payload = create_payload(MODEL, PROMPT, temperature=temp, num_ctx=baseline_num_ctx, num_predict=baseline_num_predict)
+        response_time, response_text = model_req(payload)
+        results.append(["Temperature", temp, baseline_num_ctx, baseline_num_predict, response_time, response_text])
+
+    for ctx in num_ctx_values:
+        payload = create_payload(MODEL, PROMPT, temperature=baseline_temperature, num_ctx=ctx, num_predict=baseline_num_predict)
+        response_time, response_text = model_req(payload)
+        results.append(["Context Size", baseline_temperature, ctx, baseline_num_predict, response_time, response_text])
+
+    for predict in num_predict_values:
+        payload = create_payload(MODEL, PROMPT, temperature=baseline_temperature, num_ctx=baseline_num_ctx, num_predict=predict)
+        response_time, response_text = model_req(payload)
+        results.append(["Prediction Length", baseline_temperature, baseline_num_ctx, predict, response_time, response_text])
+
+    for i in range(3):
+        payload = create_payload(MODEL, PROMPT, temperature=temperature_values[i], num_ctx=num_ctx_values[i], num_predict=baseline_num_predict)
+        response_time, response_text = model_req(payload)
+        results.append(["Two Variables", temperature_values[i], num_ctx_values[i], baseline_num_predict, response_time, response_text])
+
+    for i in range(3):
+        payload = create_payload(MODEL, PROMPT, temperature=temperature_values[i], num_ctx=num_ctx_values[i], num_predict=num_predict_values[i])
+        response_time, response_text = model_req(payload)
+        results.append(["Three Variables", temperature_values[i], num_ctx_values[i], num_predict_values[i], response_time, response_text])
+
+    save_results()
+
+def save_results():
+    filename = "experiment_results.csv"
+    headers = ["Variation Type", "Temperature", "Context Size", "Prediction Length", "Response Time", "Generated Response"]
+    
+    with open(filename, mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(headers)
+        writer.writerows(results)
+    
+    print(f"Results saved to {filename}")
 
 if __name__ == "__main__":
-    from _pipeline import create_payload, model_req
-    MESSAGE = "what is a dog?"
-    PROMPT = MESSAGE
-    payload = create_payload(
-                         target="ollama",   
-                         model="llama3.2:latest", 
-                         prompt=PROMPT,
-                         temperature=1.0,
-                         num_ctx=10000,
-                         num_predict=100)
-
-    time, response = model_req(payload=payload)
-    print(response)
-    if time: print(f'Time taken: {time}s')
+    run_experiment()
