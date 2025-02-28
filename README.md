@@ -2,7 +2,7 @@
 
 Response Time and Quality Analysis 
 
-* Authors: [Zachary Lavallee](https://github.com/zacharylavallee/COT6930-Assignment01)
+* Authors: [Zachary Lavallee](http://www.linkedin.com/in/zacharynlavallee)
 * Academic Supervisor: [Dr. Fernando Koch](http://www.fernandokoch.me)
 
 # Research Question 
