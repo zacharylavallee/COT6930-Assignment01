@@ -4,45 +4,15 @@
 
 Each response is evaluated based on the following five criteria, with a maximum possible score of **25 points**.
 
-## 1. Completeness (**0-5 points**)  
-- **5:** Fully addresses the topic, leaving no major gaps.  
-- **4:** Mostly complete but could use minor expansion.  
-- **3:** Covers key aspects but lacks depth in some areas.  
-- **2:** Partially complete but missing significant details.  
-- **1:** Barely addresses the topic.  
-- **0:** Completely incomplete or off-topic.  
+## 1. Completeness (**0-5 points**)   
 
 ## 2. Accuracy (**0-5 points**)  
-- **5:** Factually correct with no errors.  
-- **4:** Mostly accurate, minor inaccuracies present.  
-- **3:** Somewhat accurate but contains notable errors.  
-- **2:** Several inaccuracies or misleading statements.  
-- **1:** Mostly incorrect.  
-- **0:** Completely inaccurate or fabricated.  
 
 ## 3. Depth & Context (**0-5 points**)  
-- **5:** Provides in-depth analysis with supporting explanations and examples.  
-- **4:** Good level of depth, though could use more examples or context.  
-- **3:** Covers the basics but lacks deeper insights.  
-- **2:** Brief discussion with little context or explanation.  
-- **1:** Barely any depth, very surface-level.  
-- **0:** No context or depth provided.  
 
 ## 4. Clarity & Readability (**0-5 points**)  
-- **5:** Well-structured, clear, and easy to read.  
-- **4:** Mostly clear, minor readability issues.  
-- **3:** Somewhat structured but could be more concise or clearer.  
-- **2:** Difficult to read due to poor structure or wording.  
-- **1:** Very unclear, hard to follow.  
-- **0:** Completely unreadable.  
 
 ## 5. Usefulness & Application (**0-5 points**)  
-- **5:** Provides actionable insights or solutions.  
-- **4:** Mostly useful but missing key applications.  
-- **3:** Somewhat useful but lacks clear takeaways.  
-- **2:** Limited practical use.  
-- **1:** Barely useful.  
-- **0:** No practical application.  
 
 ---
 
