@@ -7,7 +7,7 @@ Response quality analysis
 
 # Research Question 
 
-How does Temperature, Context Size, and Prediction Length affect response time and response quality?
+How does Temperature, Context Size, and Prediction Length affect response time and quality?
 
 ## Arguments
 
