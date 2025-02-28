@@ -7,24 +7,29 @@ Response Time and Quality Analysis
 
 # Research Question 
 
-How does Temperature, Context Size, and Prediction Length affect response time and quality?
+How does variability of Temperature, Context Size, and Prediction Length affect response time and quality?  
 
 ## Arguments
 
 #### What is already known about this topic
 
 * Temperature controls the randomness of the model's output.
+  * A higher temperature makes the response more creative.
+  * A lower temperature makes the response more deterministic.
 * Context size sets the number of tokens the model considers when generating a response.
+  * Determines how much prior conversation or text the model remembers.
 * Prediction length limits the maximum number of tokens generated in the response.
+  * A lower limit results in shorter responses, while a higher limit allows for more detailed answers
 
 #### What this research is exploring
 
 * I am using the Chain-of-Thought prompt template.
-* I am exploring how the three values affect response generation time and quality.
+* I am exploring how variability of the three values affect response generation time and quality.
 
 #### Implications for practice
 
 * Optimization of the use of a model to answer specific questions and receive desired details from a prompt.
+* Optimization of resources, not increasing values unnecessarily at the cost or time and resources it takes to produce a response.
 
 # Research Method
 
